@@ -1,0 +1,213 @@
+<div class="full-width">
+    <h1 mat-dialog-title>Policy</h1>
+    <form
+        class="form full-width"
+        [formGroup]="FormGroup"
+    >
+        <div mat-dialog-content>
+            <mat-card class="details">
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label class="label">
+                            <b>Policy Number:</b>
+                        </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <mat-form-field
+                            class="full-width"
+                            appearance="outline"
+                        >
+                            <input
+                                matInput
+                                formControlName="PolicyNumber"
+                                required
+                            >
+                            <mat-error>
+                                This is
+                                <b>required</b>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="label">
+                            <b>Policy Type:</b>
+                        </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <mat-form-field
+                            class="full-width"
+                            appearance="outline"
+                        >
+                            <mat-select
+                                required
+                                formControlName="PolicyTypeId"
+                                style="height: 30px !important; padding-top: 10px;"
+                            >
+                                <mat-option
+                                    *ngFor="let g of PolicyTypes"
+                                    [value]="g.Id"
+                                >
+                                    {{g.Description}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                This is
+                                <b>required</b>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="label">
+                            <b>Commencement Date:</b>
+                        </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <mat-form-field
+                            class="full-width"
+                            appearance="outline"
+                        >
+                            <input
+                                matInput
+                                formControlName="CommencementDate"
+                                [matDatepicker]="picker"
+                                (focus)="picker.open()"
+                                required
+                            >
+                            <mat-datepicker-toggle
+                                matSuffix
+                                [for]="picker"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error>
+                                This is
+                                <b>required</b>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="label">
+                            <b>Installment:</b>
+                        </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <mat-form-field
+                            class="full-width"
+                            appearance="outline"
+                        >
+                            <input
+                                matInput
+                                formControlName="Installment"
+                                required
+                            >
+                            <mat-error>
+                                This is
+                                <b>required</b>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="label">
+                            <b>Application Form:</b>
+                        </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <mat-card style="text-align: center;">
+                                    <ng-container *ngIf="ApplicationForm == null">
+                                        <img
+                                            src="/assets/file.png"
+                                            alt
+                                        >
+                                        <br>
+                                        UPLOAD FORM...
+                                    </ng-container>
+                                    <ng-container *ngIf="ApplicationForm != null">
+                                        <img
+                                            src="/assets/checked.png"
+                                            alt
+                                        >
+                                        <br>
+                                        <a
+                                            href="{{URL + ApplicationForm.Url}}"
+                                            target="_blank"
+                                        >
+                                            {{ApplicationForm.OriginalTitle}}
+                                        </a>
+                                    </ng-container>
+                                </mat-card>
+                            </div>
+                            <div class="col-sm-2">
+                                <input
+                                    #file
+                                    type="file"
+                                    style="display: none;"
+                                    (change)="FileInputChange(file)"
+                                >
+                                <button
+                                    mat-raised-button
+                                    color="primary"
+                                    (click)="file.click(); $event.preventDefault();"
+                                >
+                                    <span *ngIf="!uploadLoading">UPLOAD</span>
+                                    <i
+                                        *ngIf="uploadLoading"
+                                        class="fa fa-spinner"
+                                    ></i>
+                                </button>
+                                <mat-error *ngIf="ApplicationForm == null && formTouched">
+                                    Application Form is
+                                    <b>required</b>
+                                </mat-error>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <app-note
+                    *ngIf="Note.Display"
+                    [Note]="Note"
+                ></app-note>
+            </mat-card>
+        </div>
+        <div
+            class="full-width"
+            mat-dialog-actions
+        >
+            <div style="width: 100%;">
+                <button
+                    mat-raised-button
+                    (click)="close(); $event.preventDefault();"
+                >
+                    Cancel
+                </button>
+                <div style="float: right;">
+                    <button
+                        mat-raised-button
+                        color="warn"
+                        (click)="Delete(); $event.preventDefault();"
+                        *ngIf="FormGroup.getRawValue().Id != 0"
+                    >
+                        <span *ngIf="!loadingDelete">Delete</span>
+                        <i
+                            *ngIf="loadingDelete"
+                            class="fa fa-spinner"
+                        ></i>
+                    </button>
+                    <button
+                        mat-raised-button
+                        color="primary"
+                        (click)="Submit()"
+                    >
+                        <span *ngIf="!loading">Save</span>
+                        <i
+                            *ngIf="loading"
+                            class="fa fa-spinner"
+                        ></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

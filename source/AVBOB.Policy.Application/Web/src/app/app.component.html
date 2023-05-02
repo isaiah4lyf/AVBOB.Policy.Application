@@ -1,0 +1,290 @@
+<br>
+<div class="cotent-container">
+    <img
+        class="logo"
+        src="/assets/logo.png"
+        alt
+    >
+    <br>
+    <br>
+    <h3>
+        <b class="title">Policy Holder Details</b>
+    </h3>
+    <mat-card class="details">
+        <form
+            class="form"
+            [formGroup]="FormGroup"
+        >
+            <div class="row">
+                <div class="col-sm-1">
+                    <label class="label">
+                        <b>ID Number:</b>
+                    </label>
+                </div>
+                <div class="col-sm-11">
+                    <div style="width: 100%; position: relative;">
+                        <mat-form-field
+                            class="full-width"
+                            appearance="outline"
+                        >
+                            <input
+                                matInput
+                                formControlName="IDNumber"
+                                (keyup)="IDNumberKeyUp()"
+                                required
+                            >
+                            <mat-error>
+                                This is
+                                <b>required</b>
+                            </mat-error>
+                        </mat-form-field>
+                        <div
+                            class="autocomplete"
+                            *ngIf="AutoCompleteResults.length > 0"
+                        >
+                            <ng-container *ngFor="let item of AutoCompleteResults; let i = index;">
+                                <div
+                                    class="line"
+                                    (click)="SearchClick(item)"
+                                >
+                                    {{item.Initials}} {{item.Surname}}
+                                </div>
+                                <div
+                                    class="separator"
+                                    *ngIf="i != AutoCompleteResults.length - 1"
+                                ></div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <label class="label">
+                        <b>Initials:</b>
+                    </label>
+                </div>
+                <div class="col-sm-11">
+                    <mat-form-field
+                        class="full-width"
+                        appearance="outline"
+                    >
+                        <input
+                            matInput
+                            formControlName="Initials"
+                            required
+                        >
+                        <mat-error>
+                            This is
+                            <b>required</b>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-1">
+                    <label class="label">
+                        <b>Surname:</b>
+                    </label>
+                </div>
+                <div class="col-sm-11">
+                    <mat-form-field
+                        class="full-width"
+                        appearance="outline"
+                    >
+                        <input
+                            matInput
+                            formControlName="Surname"
+                            required
+                        >
+                        <mat-error>
+                            This is
+                            <b>required</b>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-1">
+                    <label class="label">
+                        <b>Date of Birth:</b>
+                    </label>
+                </div>
+                <div class="col-sm-11">
+                    <mat-form-field
+                        class="full-width"
+                        appearance="outline"
+                    >
+                        <input
+                            matInput
+                            formControlName="DateOfBirth"
+                            [matDatepicker]="picker"
+                            (focus)="picker.open()"
+                            required
+                        >
+                        <mat-datepicker-toggle
+                            matSuffix
+                            [for]="picker"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error>
+                            This is
+                            <b>required</b>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-1">
+                    <label class="label">
+                        <b>Gender:</b>
+                    </label>
+                </div>
+                <div class="col-sm-11">
+                    <mat-form-field
+                        class="full-width"
+                        appearance="outline"
+                    >
+                        <mat-select
+                            required
+                            formControlName="GenderId"
+                            style="height: 30px !important; padding-top: 10px;"
+                        >
+                            <mat-option
+                                *ngFor="let g of Genders"
+                                [value]="g.Id"
+                            >
+                                {{g.Description}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>
+                            This is
+                            <b>required</b>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <app-note
+                *ngIf="Note.Display"
+                [Note]="Note"
+            ></app-note>
+            <div class="full-width">
+                <div style="float: right;">
+                    <button
+                        class="button"
+                        mat-raised-button
+                        style="margin-right: 10px;"
+                        *ngIf="this.FormGroup.getRawValue().Id != 0"
+                        (click)="Cancel(); $event.preventDefault();"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        mat-raised-button
+                        color="primary"
+                        class="button"
+                        (click)="Submit()"
+                    >
+                        <span *ngIf="!loading">Save</span>
+                        <i
+                            *ngIf="loading"
+                            class="fa fa-spinner"
+                        ></i>
+                    </button>
+                </div>
+                <br>
+                <br>
+            </div>
+        </form>
+    </mat-card>
+    <br>
+    <br>
+    <h3>
+        <b class="title">Policy Holder: Policies</b>
+    </h3>
+    <mat-card class="details">
+        <div
+            class="mat-elevation-z0"
+            style="margin-top: 10px; "
+        >
+            <div style="overflow-x: auto;">
+                <table
+                    mat-table
+                    [dataSource]="dataSource"
+                    class="full-width"
+                >
+                    <ng-container *ngFor="let column of displayedColumns; let i = index;">
+                        <ng-container matColumnDef="{{column}}">
+                            <th
+                                mat-header-cell
+                                *matHeaderCellDef
+                                class="green-border cursor-pointer"
+                            >
+                                <b>{{displayedColumnsDescriptions[i]}}</b>
+                            </th>
+                            <ng-container *ngIf="column != 'action'">
+                                <td
+                                    mat-cell
+                                    *matCellDef="let element"
+                                    class="green-border"
+                                >
+                                    {{element[column]}}
+                                </td>
+                            </ng-container>
+                            <ng-container *ngIf="column == 'action'">
+                                <td
+                                    mat-cell
+                                    *matCellDef="let element; let i = index"
+                                    class="green-border"
+                                    align="right"
+                                >
+                                    <mat-icon
+                                        class="cursor-pointer"
+                                        (click)="AddPolicy(element)"
+                                    >
+                                        edit
+                                    </mat-icon>
+                                </td>
+                            </ng-container>
+
+                        </ng-container>
+                    </ng-container>
+                    <tbody>
+                        <tr
+                            mat-header-row
+                            *matHeaderRowDef="displayedColumns"
+                            class="green-border"
+                        ></tr>
+                        <tr
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns; let i = index"
+                            class="green-border"
+                            [ngClass]="{ 'even-row': i % 2 == 0 }"
+                        ></tr>
+                    </tbody>
+                </table>
+                <mat-paginator
+                    [length]="PageEvent.length"
+                    [pageIndex]="PageEvent.pageIndex"
+                    [pageSize]="PageEvent.pageSize"
+                    [pageSizeOptions]="[5, 10, 25, 100]"
+                    showFirstLastButtons
+                    (page)="page($event)"
+                >
+                </mat-paginator>
+            </div>
+        </div>
+        <br>
+        <div
+            class="full-width"
+            *ngIf="this.FormGroup.getRawValue().Id != 0"
+        >
+            <div style="float: right;">
+                <button
+                    mat-raised-button
+                    color="primary"
+                    class="button"
+                    (click)="AddPolicy({})"
+                >
+                    Add
+                </button>
+            </div>
+            <br>
+            <br>
+        </div>
+    </mat-card>
+</div>
+<br>
+<br>

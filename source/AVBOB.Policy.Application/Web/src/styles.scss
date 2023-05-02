@@ -1,0 +1,181 @@
+@use '@angular/material' as mat;
+
+@import "~@angular/material/theming";
+
+@include mat.core();
+
+$primary-palette: (
+  50 : var(--primary-color),
+  100 : var(--primary-color),
+  200 : var(--primary-color),
+  300 : var(--primary-color),
+  400 : var(--primary-color),
+  500 : var(--primary-color),
+  600 : var(--primary-color),
+  700 : var(--primary-color),
+  800 : var(--primary-color),
+  900 : var(--primary-color),
+  contrast: (50 : white,
+    500 : white)
+);
+
+$accent-palette: (
+  50 : var(--accent-color),
+  100 : var(--accent-color),
+  200 : var(--accent-color),
+  300 : var(--accent-color),
+  400 : var(--accent-color),
+  500 : var(--accent-color),
+  600 : var(--accent-color),
+  700 : var(--accent-color),
+  800 : var(--accent-color),
+  900 : var(--accent-color),
+  contrast: (50 : white,
+    500 : white)
+);
+
+$warn-palette: (
+  50 : var(--warn-color),
+  100 : var(--warn-color),
+  200 : var(--warn-color),
+  300 : var(--warn-color),
+  400 : var(--warn-color),
+  500 : var(--warn-color),
+  600 : var(--warn-color),
+  700 : var(--warn-color),
+  800 : var(--warn-color),
+  900 : var(--warn-color),
+  contrast: (50 : white,
+    500 : white)
+);
+
+
+
+$web-primary: mat-palette($primary-palette);
+$web-accent: mat-palette($accent-palette);
+$web-warn: mat-palette($warn-palette);
+
+
+$web-theme: mat.define-light-theme((color: (primary: $web-primary,
+        accent: $web-accent,
+        warn: $web-warn )));
+
+
+@include mat.all-component-themes($web-theme);
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding-top: 0px !important;
+  padding-bottom: 5px !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-start {
+  border-color: var(--accent-color) !important;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick{
+  border-color: var(--warn-color) !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-end{
+  border-color: var(--accent-color) !important;
+}
+
+.fa-spinner {
+  animation-name: spin;
+  animation-duration: 4000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes spin {
+  from {
+      transform: rotate(0deg);
+  }
+
+  to {
+      transform: rotate(360deg);
+  }
+}
+
+
+div.separator {
+  clear: both;
+  margin-top: 10px;
+  margin-bottom: 13px;
+  border: 0;
+  height: 1px;
+  background: -webkit-linear-gradient(left,rgba(0,0,0,.01),rgba(0,0,0,.15),rgba(0,0,0,.01));
+  background-image: -webkit-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,.15),rgba(0,0,0,0));
+  background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,.15),rgba(0,0,0,0));
+  background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,.15),rgba(0,0,0,0));
+  background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,.15),rgba(0,0,0,0));
+}
+
+.cotent-container {
+  width: 80%;
+  padding: 10px;
+  margin: auto;
+
+}
+
+.title {
+  color: var(--primary-color);
+}
+
+.details {
+  width: 100%;
+  border: solid 1px;
+  border-color: var(--accent-color);
+}
+
+.details .label {
+  color: var(--primary-color);
+  padding-top: 15px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-width input {
+  height: 30px !important;
+  background-color: white;
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+  float: right;
+  border-radius: 10px;
+}
+
+.green-border {
+  border-color: silver;
+} 
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.even-row {
+  background-color: var(--accent-color);
+}
+
+.autocomplete{
+  top: 45px;
+  width: 100%;
+  z-index: 99999;
+  padding: 10px;
+  position: absolute;
+  background-color: white;
+  border-radius: 0px 0px 5px 5px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.autocomplete .line{
+  cursor: pointer;
+}
+
+.white-icon{
+    color: white !important;
+}
