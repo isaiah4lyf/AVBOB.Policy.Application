@@ -113,7 +113,9 @@ export class AppComponent implements OnInit {
         "PolicyHolder",
         `Search/${IDNumber}`
       ).subscribe((x: any) => {
-        this.AutoCompleteResults = x.Data;
+        if(x.Data != undefined){
+          this.AutoCompleteResults = x.Data;
+        }
       });
     } else {
       this.AutoCompleteResults = [];

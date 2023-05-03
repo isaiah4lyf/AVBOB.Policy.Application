@@ -1,13 +1,11 @@
 ﻿using AVBOB.Application.Entities.Context;
 using AVBOB.Application.Entities.Models;
 using BusinessLogic.Interfaces;
+using Communication.Engine;
 using DTO;
 using DTO.Response;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Helpers;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogic
 {
@@ -26,16 +24,24 @@ namespace BusinessLogic
             try
             {
                 response.IsSuccess = true;
-                response.Data = _context.PolicyHolders.Select(_holder => new PolicyHolderDTO()
+                response.Data = _context.PolicyHolders.Where(delegate(PolicyHolder x) 
                 {
-                    Id = _holder.Id,
-                    Idnumber = _holder.Idnumber,
-                    Initials = _holder.Initials,
-                    Surname = _holder.Surname,
-                    DateOfBirth = _holder.DateOfBirth,
-                    GenderId = _holder.GenderId,
-                    IsActive = _holder.IsActive
-                }).Where(x => x.Idnumber != null ? x.Idnumber.ToLower().Contains(IDNumber.ToLower()) : false).ToList();
+                    return x.Idnumber != null ? Encryption.Decrypt(x.Idnumber, "AVBOB").ToLower().Contains(IDNumber.ToLower()) : false;
+                })
+                .Select(delegate(PolicyHolder _holder)
+                {
+                    return new PolicyHolderDTO()
+                    {
+                        Id = _holder.Id,
+                        Idnumber = Encryption.Decrypt(_holder.Idnumber ?? string.Empty, "AVBOB"),
+                        Initials = _holder.Initials,
+                        Surname = _holder.Surname,
+                        DateOfBirth = _holder.DateOfBirth,
+                        GenderId = _holder.GenderId,
+                        IsActive = _holder.IsActive
+                    };
+                })
+                .ToList();
 
                 return response;
             }
@@ -54,7 +60,7 @@ namespace BusinessLogic
             {
                 PolicyHolder holder = new PolicyHolder();
 
-                holder.Idnumber = _holder?.Idnumber;
+                holder.Idnumber = Encryption.Encrypt(_holder?.Idnumber ?? string.Empty, "AVBOB");
                 holder.Initials = _holder?.Initials;
                 holder.Surname = _holder?.Surname;
                 holder.DateOfBirth = _holder?.DateOfBirth;
@@ -72,6 +78,22 @@ namespace BusinessLogic
 
                 response.IsSuccess = true;
                 response.Data = _holder;
+
+
+                Email.Send(new Communication.Engine.DTO.EmailDTO()
+                {
+                    ReplyTo = new string[] { },
+                    BCC = new string[] { },
+                    CC = new string[] { },
+                    IsHTML = true,
+                    Message = Encoding.ASCII.GetBytes("Good Day, Please note new policy holder has been created. Kind regards"),
+                    EmailAccount = "avbob",
+                    Subject = "New Policy Holder",
+                    FromName = "AVBOB",
+                    From = "no-reply@avbob.co.za",
+                    Recipients = new string[] { "support@avbob.co.za" },
+                    Attachments = new Communication.Engine.DTO.EmailAttachmentDTO[] { }
+                });
 
                 return response;
             }
@@ -93,7 +115,7 @@ namespace BusinessLogic
                 if (holder.Id != 0)
                 {
                     holder.Id = _holder.Id;
-                    holder.Idnumber = _holder?.Idnumber;
+                    holder.Idnumber = Encryption.Encrypt(_holder?.Idnumber ?? string.Empty, "AVBOB");
                     holder.Initials = _holder?.Initials;
                     holder.Surname = _holder?.Surname;
                     holder.DateOfBirth = _holder?.DateOfBirth;
@@ -135,7 +157,7 @@ namespace BusinessLogic
                     response.Data = new PolicyHolderDTO()
                     {
                         Id = _holder.Id,
-                        Idnumber = _holder?.Idnumber,
+                        Idnumber =  Encryption.Decrypt(_holder?.Idnumber ?? string.Empty, "AVBOB"),
                         Initials = _holder?.Initials,
                         Surname = _holder?.Surname,
                         DateOfBirth = _holder?.DateOfBirth,

@@ -5,25 +5,29 @@ VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{3652E9E6-5940-4580-BB60-E428DF60F91E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVBOB.Application.API", "API\AVBOB.Policy.Application.API\AVBOB.Application.API.csproj", "{F1B50F7F-7BE3-4082-BA10-7AF2306E376C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AVBOB.Application.API", "API\AVBOB.Policy.Application.API\AVBOB.Application.API.csproj", "{F1B50F7F-7BE3-4082-BA10-7AF2306E376C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLogic", "BusinessLogic", "{26F10653-384E-4BC7-9F53-CD468A2871FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic\BusinessLogic.csproj", "{E9A096FA-920A-4E58-A618-92901E6922E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "BusinessLogic\BusinessLogic\BusinessLogic.csproj", "{E9A096FA-920A-4E58-A618-92901E6922E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic.Interfaces", "BusinessLogic\BusinessLogic.Interfaces\BusinessLogic.Interfaces.csproj", "{05DE3277-866A-4A5B-81A7-A96F40018CD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic.Interfaces", "BusinessLogic\BusinessLogic.Interfaces\BusinessLogic.Interfaces.csproj", "{05DE3277-866A-4A5B-81A7-A96F40018CD5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{47D54C52-9220-41E6-A455-EB002193AE8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "Common\DTO\DTO.csproj", "{CBF92851-83A2-4A85-932A-F249441D4ED5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "Common\DTO\DTO.csproj", "{CBF92851-83A2-4A85-932A-F249441D4ED5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enums", "Common\Enums\Enums.csproj", "{89DECF37-F81F-41BD-B2E9-95385497BBE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enums", "Common\Enums\Enums.csproj", "{89DECF37-F81F-41BD-B2E9-95385497BBE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Common\Helpers\Helpers.csproj", "{01656DC5-DC91-4791-80C6-0EF11BFE574C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helpers", "Common\Helpers\Helpers.csproj", "{01656DC5-DC91-4791-80C6-0EF11BFE574C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{8917EFF5-75EB-4B63-8A7D-BF302404E24D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVBOB.Application.Entities", "Entities\AVBOB.Policy.Application.Entities\AVBOB.Application.Entities.csproj", "{7800A9DA-471B-41D3-B20D-28B2EBDA60AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AVBOB.Application.Entities", "Entities\AVBOB.Policy.Application.Entities\AVBOB.Application.Entities.csproj", "{7800A9DA-471B-41D3-B20D-28B2EBDA60AA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Communication", "Communication", "{09356220-DF06-45C2-B6E2-14A7F9F0AB69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Communication.Engine", "Communication\Communication.Engine\Communication.Engine.csproj", "{41E4CF06-68C7-44EF-B7D7-083392515693}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +63,10 @@ Global
 		{7800A9DA-471B-41D3-B20D-28B2EBDA60AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7800A9DA-471B-41D3-B20D-28B2EBDA60AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7800A9DA-471B-41D3-B20D-28B2EBDA60AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41E4CF06-68C7-44EF-B7D7-083392515693}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41E4CF06-68C7-44EF-B7D7-083392515693}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41E4CF06-68C7-44EF-B7D7-083392515693}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41E4CF06-68C7-44EF-B7D7-083392515693}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +79,7 @@ Global
 		{89DECF37-F81F-41BD-B2E9-95385497BBE1} = {47D54C52-9220-41E6-A455-EB002193AE8C}
 		{01656DC5-DC91-4791-80C6-0EF11BFE574C} = {47D54C52-9220-41E6-A455-EB002193AE8C}
 		{7800A9DA-471B-41D3-B20D-28B2EBDA60AA} = {8917EFF5-75EB-4B63-8A7D-BF302404E24D}
+		{41E4CF06-68C7-44EF-B7D7-083392515693} = {09356220-DF06-45C2-B6E2-14A7F9F0AB69}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9FA178D9-1431-4223-8A0A-CEC19DE28D81}
